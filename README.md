@@ -1,23 +1,20 @@
-# Forge OS
+# Forge OS · 锻造操作系统
 
-**AI-native operating system. Rust from the kernel up. Voice-first. Community-driven GUI.**
+**AI-native operating system. Voice-first. Community-driven. Built in Rust.**
 
-Forge OS 是一个基于 Linux 内核、Rust 语言构建的 AI 原生操作系统。通过语音指令控制，内置多模态 LLM 作为大脑，AI Agent 作为操作手。GUI 完全可生态化，社区可自由设计主题、组件和扩展。
-
-![Forge Logo](assets/logo.svg)
+**AI 原生操作系统。语音优先。社区驱动。Rust 全栈构建。**
 
 ---
 
-## 版本
-
-| 版本 | 日期 | ISO | 里程碑 |
-|------|------|-----|--------|
-| **v0.2.0** | 2026-06-24 | 82 MB | 8 binaries, 20 tools, UEFI, community SDK |
-| v0.1.0 | 2026-06-24 | 77 MB | 7 binaries, bootable ISO
+[English](#english) | [中文](#中文)
 
 ---
 
-## 架构
+## English
+
+Forge OS is an AI-native operating system built on the Linux kernel, written entirely in Rust. It features built-in multimodal LLM as its brain, an AI Agent as its operator, and voice command as its primary interface. The GUI is fully customizable — the community can design themes, widgets, and extensions freely, without needing a backend server.
+
+### Architecture
 
 ```
   Voice I/O ──→ STT (whisper.cpp) ──→ Agent (OODA) ──→ LLM (llama.cpp)
@@ -26,12 +23,81 @@ Forge OS 是一个基于 Linux 内核、Rust 语言构建的 AI 原生操作系�
               ↓                        ↓
          TTS (piper)              Tools (20 tools)
               │                        │
-         Speaker                   File/Proc/Net/System
+         Speaker              File/Proc/Net/System/Web
 ```
+
+### Components (8 crates)
+
+| Crate | Size | Purpose |
+|-------|------|---------|
+| `forge-init` | 670K | PID 1 — mounts filesystems, spawns service manager |
+| `forge-svc` | 989K | Service manager — daemon supervision with exponential backoff |
+| `forge-hal` | 993K | Hardware abstraction — audio, camera, GPU detection, IPC |
+| `forge-llm` | 4.2M | Multimodal LLM engine — llama.cpp CLI backend, HTTP API |
+| `forge-voice` | 1.3M | Voice pipeline — wake word, STT (whisper.cpp), TTS (piper) |
+| `forge-agent` | 5.3M | AI operator — OODA loop + 20-tool registry |
+| `forge-gui` | 1.0M | Desktop GUI — framebuffer compositor, theme engine |
+| `forge-theme` | ~500K | Theme CLI — scaffold, validate, package, install |
+
+### Agent Tools (20 tools)
+
+| Category | Tools |
+|----------|-------|
+| **File System** | list, read, write, delete, mkdir, search, copy, move |
+| **Process** | launch, kill, list |
+| **System** | info, shutdown, reboot, volume |
+| **Network** | http, download |
+| **Web** | search, browse |
+| **Display** | screenshot |
+
+### Build
+
+```bash
+cargo build --release
+bash iso-builder/build-iso.sh     # produces bootable ISO (BIOS + UEFI)
+```
+
+### Community Themes
+
+No server needed. Create, share, install offline:
+
+1. Read [community/THEME_SPEC.md](community/THEME_SPEC.md)
+2. `forge-theme create my-theme`
+3. Edit `theme.json`, run `forge-theme pack`
+4. Share the `.forge-theme` file via GitHub Releases, USB, email, etc.
+5. Others install with `forge-theme install <file/url>`
+
+### Security
+
+- All Agent tools run in a sandboxed executor with permission checks
+- API keys stored in environment variables only
+- No secrets in source code or logs
+- CORS whitelist, rate limiting, audit logging
+- See [docs/security.md](docs/security.md)
+
+### License
+
+Apache-2.0
 
 ---
 
-## 组件 (8 crates)
+## 中文
+
+Forge OS 是一个基于 Linux 内核、Rust 语言全栈构建的 AI 原生操作系统。内置多模态 LLM 作为大脑，AI Agent 作为操作手，语音指令作为主要交互方式。GUI 完全可生态化——社区可自由设计主题、组件和扩展，无需后端服务器。
+
+### 架构
+
+```
+  语音输入 ──→ STT (whisper.cpp) ──→ Agent (OODA) ──→ LLM (llama.cpp)
+                                        │
+               ┌────────────────────────┤
+               ↓                        ↓
+          TTS (piper)              Tools (20 个工具)
+               │                        │
+           扬声器              文件/进程/网络/系统/Web
+```
+
+### 组件 (8 crates)
 
 | Crate | 大小 | 功能 |
 |-------|------|------|
@@ -39,102 +105,47 @@ Forge OS 是一个基于 Linux 内核、Rust 语言构建的 AI 原生操作系�
 | `forge-svc` | 989K | 服务管理器，守护进程监控 + 指数退避重启 |
 | `forge-hal` | 993K | 硬件抽象层，音频/摄像头/GPU 检测，IPC |
 | `forge-llm` | 4.2M | 多模态 LLM 引擎，llama.cpp CLI 后端，HTTP API |
-| `forge-voice` | 1.3M | 语音流水线，whisper.cpp STT + piper TTS |
+| `forge-voice` | 1.3M | 语音流水线，唤醒词 + STT (whisper.cpp) + TTS (piper) |
 | `forge-agent` | 5.3M | AI 操作手，OODA 循环 + 20 工具注册表 |
 | `forge-gui` | 1.0M | 图形界面，framebuffer 渲染，主题引擎 |
-| `forge-theme` | ~500K | 社区主题 CLI，创建/校验/打包/安装 |
+| `forge-theme` | ~500K | 社区主题 CLI，脚手架/校验/打包/安装 |
 
----
-
-## Agent 工具 (20 tools)
+### Agent 工具 (20 个)
 
 | 类别 | 工具 |
 |------|------|
-| **文件系统** | fs_list, fs_read, fs_write, fs_delete, fs_mkdir, fs_search, fs_copy, fs_move |
-| **进程** | proc_launch, proc_kill, proc_list |
-| **系统** | sys_info, sys_shutdown, sys_reboot, sys_volume |
-| **网络** | net_http, net_download |
-| **Web** | web_search, web_browse |
-| **显示** | display_screenshot |
+| **文件系统** | 列出、读取、写入、删除、创建目录、搜索、复制、移动 |
+| **进程** | 启动、杀死、列表 |
+| **系统** | 信息、关机、重启、音量 |
+| **网络** | HTTP 请求、下载 |
+| **Web** | 搜索、浏览 |
+| **显示** | 截图 |
 
----
-
-## 品牌
-
-![Icon](assets/icon.svg)
-
-| 资源 | 说明 |
-|------|------|
-| 主色 | `#FF6B35` Forge Orange → `#F7931E` Amber → `#FFD200` Gold |
-| 暗色底 | `#0a0a0f` Deep Void |
-| 字体 | Inter (UI) + JetBrains Mono (Code) |
-
----
-
-## 构建
+### 构建
 
 ```bash
-# 编译
 cargo build --release
-
-# 构建 ISO (BIOS + UEFI)
-bash iso-builder/build-iso.sh
+bash iso-builder/build-iso.sh     # 生成可启动 ISO (BIOS + UEFI)
 ```
 
-## 首次启动
+### 社区主题市场
 
-```bash
-# 下载 AI 模型（ISO 不含模型，启动后按需下载）
-forge-model-dl
-
-# 管理社区主题
-forge-theme list          # 已安装主题
-forge-theme create mine   # 创建新主题
-forge-theme install url   # 安装社区主题
-forge-theme set "Neon Nights"
-```
-
----
-
-## 社区主题市场
-
-无需后端服务器，零成本分发：
+无需服务器。离线创建、分享、安装：
 
 1. 阅读 [community/THEME_SPEC.md](community/THEME_SPEC.md)
-2. `forge-theme create my-theme` 脚手架
-3. 编辑 `theme.json`，`forge-theme pack`
-4. 丢 GitHub Release 或直接 `.forge-theme` 文件分享
-5. 别人 `forge-theme install <文件/URL>` 即可
+2. `forge-theme create my-theme`
+3. 编辑 `theme.json`，运行 `forge-theme pack`
+4. 通过 GitHub Release、U 盘、邮件等分享 `.forge-theme` 文件
+5. 别人用 `forge-theme install <文件/URL>` 安装
 
-详见 [community/README.md](community/README.md)
+### 安全设计
 
----
+- 所有 Agent 工具在沙箱执行器中运行，权限逐项校验
+- API 密钥仅存环境变量，不在代码和日志中留痕
+- CORS 白名单、速率限制、审计日志
+- 敏感操作二次确认
+- 详见 [docs/security.md](docs/security.md)
 
-## 路线图
-
-- [x] 架构设计 + Rust 项目骨架
-- [x] PID 1 init + 服务管理器
-- [x] HAL (音频/摄像头/GPU)
-- [x] LLM 引擎 (llama.cpp + GGUF)
-- [x] 语音流水线 (whisper.cpp + piper)
-- [x] Agent OODA + 20 工具
-- [x] GUI 渲染 (framebuffer compositor)
-- [x] 品牌 Logo + 视觉规范
-- [x] 社区主题 CLI + SDK + 规范
-- [x] UEFI + BIOS 双启动 ISO
-- [x] 模型下载器 (forge-model-dl)
-- [x] 推送到 GitHub
-- [ ] 集成真实 GGUF 模型到 ISO
-- [ ] GPU 加速推理 (Vulkan/CUDA)
-- [ ] 字体渲染引擎 (fontdue)
-- [ ] 窗口管理器
-- [ ] 文件管理器 GUI
-- [ ] 系统设置面板
-- [ ] ISO 瘦身 < 50MB
-- [ ] v1.0 正式发布
-
----
-
-## 许可证
+### 许可证
 
 Apache-2.0
