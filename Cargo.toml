@@ -1,4 +1,4 @@
-﻿[workspace]
+[workspace]
 members = [
     "forge-init",
     "forge-svc",
@@ -7,7 +7,7 @@ members = [
     "forge-voice",
     "forge-agent",
     "forge-gui",
-    "forge-theme",
+    "forge-theme","forge-guard",
 ]
 resolver = "2"
 

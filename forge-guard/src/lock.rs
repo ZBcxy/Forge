@@ -1,0 +1,1 @@
+pub async fn run_auto_lock() { loop { tokio::time::sleep(tokio::time::Duration::from_secs(60)).await; } }
