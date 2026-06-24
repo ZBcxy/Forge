@@ -149,3 +149,15 @@ bash iso-builder/build-iso.sh     # 生成可启动 ISO (BIOS + UEFI)
 ### 许可证
 
 Apache-2.0
+## Roadmap / 路线图
+
+- [x] 架构设计 + Rust skeleton / Architecture + Rust skeleton
+- [x] PID 1 init + service manager / PID 1 init + 服务管理器
+- [x] HAL + LLM + Voice + Agent (20 tools)
+- [x] Brand logo + community theme SDK / 品牌 Logo + 社区主题 SDK
+- [x] UEFI + BIOS dual-boot ISO / UEFI + BIOS 双启动 ISO
+- [x] Window manager + file manager + settings panel / 窗口管理器 + 文件管理器 + 设置面板
+- [x] GPU acceleration / GPU 加速推理
+- [x] ISO < 50MB / ISO 瘦身
+- [x] Bilingual README + security docs / 中英双语文档 + 安全文档
+- [x] v1.0 release / v1.0 正式发布
