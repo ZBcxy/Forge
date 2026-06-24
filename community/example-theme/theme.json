@@ -1,0 +1,58 @@
+{
+  "//": "=== Forge OS Theme — Community Example ===",
+  "//_instructions": "Copy this file, edit values, add assets/, and place in /opt/forge/themes/community/ or ~/.forge/themes/",
+  
+  "meta": {
+    "name": "Neon Nights",
+    "author": "Your Name Here",
+    "version": "1.0.0",
+    "description": "A vibrant neon theme for Forge OS with purple and cyan accents",
+    "license": "MIT"
+  },
+  
+  "colors": {
+    "//_tip": "Colors are hex RGB/RGBA. Use https://colorhunt.co or https://coolors.co for palette ideas.",
+    "background": "#0d0221",
+    "surface": "#150530",
+    "surface_alt": "#1a0840",
+    "primary": "#ff00ff",
+    "secondary": "#00ffff",
+    "accent": "#ff6600",
+    "danger": "#ff0044",
+    "on_primary": "#ffffff",
+    "on_background": "#e0d0ff",
+    "on_surface": "#c0a0e0",
+    "border": "#302050"
+  },
+  
+  "fonts": {
+    "//_tip": "Fonts must be installed on the system. Inter and JetBrains Mono ship with Forge OS.",
+    "family": "Inter",
+    "size": 14,
+    "weight": "regular",
+    "mono_family": "JetBrains Mono",
+    "mono_size": 13
+  },
+  
+  "layout": {
+    "//_tip": "All values in pixels. Adjust sidebar_width for widescreen, padding for compactness.",
+    "padding": 12,
+    "radius_px": 10,
+    "gap_px": 8,
+    "sidebar_width": 260,
+    "topbar_height": 42
+  },
+  
+  "animations": {
+    "//_tip": "Set enabled: false for zero-animation mode (faster on low-end hardware).",
+    "enabled": true,
+    "duration_ms": 250,
+    "easing": "ease-out"
+  },
+  
+  "sounds": {
+    "//_tip": "Place .ogg/.wav files in assets/sounds/ and reference them here.",
+    "enabled": true,
+    "volume": 0.75
+  }
+}

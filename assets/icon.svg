@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35"/>
+      <stop offset="50%" style="stop-color:#F7931E"/>
+      <stop offset="100%" style="stop-color:#FFD200"/>
+    </linearGradient>
+    <linearGradient id="sg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD200"/>
+      <stop offset="100%" style="stop-color:#FFFFFF"/>
+    </linearGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <!-- Anvil -->
+  <polygon points="100,155 75,135 75,70 100,50 140,50 165,70 165,135 140,155" fill="url(#fg)" filter="url(#gl)"/>
+  <polygon points="75,70 100,50 140,50 165,70 120,80" fill="#E85D26" opacity="0.85"/>
+  <path d="M55,118 L35,100 L42,80 L60,85 Z" fill="url(#fg)" filter="url(#gl)"/>
+  <!-- Hammer -->
+  <rect x="100" y="12" width="12" height="55" rx="4" fill="#555" transform="rotate(-22,106,39)"/>
+  <rect x="80" y="0" width="45" height="22" rx="5" fill="url(#fg)" transform="rotate(-22,106,39)" filter="url(#gl)"/>
+  <!-- Sparks -->
+  <circle cx="128" cy="8" r="3.5" fill="#FFD200" filter="url(#gl)" opacity="0.9"/>
+  <circle cx="148" cy="2" r="2.5" fill="#FF6B35" filter="url(#gl)" opacity="0.7"/>
+  <circle cx="112" cy="0" r="3" fill="#FFFFFF" filter="url(#gl)" opacity="0.8"/>
+  <circle cx="160" cy="15" r="2" fill="#FFD200" filter="url(#gl)" opacity="0.6"/>
+  <circle cx="100" cy="5" r="2.5" fill="#F7931E" filter="url(#gl)" opacity="0.7"/>
+</svg>

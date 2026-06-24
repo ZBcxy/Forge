@@ -1,0 +1,13 @@
+/target/
+**/__pycache__/
+*.tmp
+*.swp
+*.swo
+.env
+*.local.*
+.vscode/
+.idea/
+*.iso
+*.vhdx
+*.forge-theme
+Cargo.lock

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <linearGradient id="forgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35"/>
+      <stop offset="50%" style="stop-color:#F7931E"/>
+      <stop offset="100%" style="stop-color:#FFD200"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B35"/>
+      <stop offset="100%" style="stop-color:#F7931E"/>
+    </linearGradient>
+    <linearGradient id="sparkGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD200"/>
+      <stop offset="100%" style="stop-color:#FFFFFF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Anvil base -->
+  <polygon points="95,145 75,130 75,75 95,60 125,60 145,75 145,130 125,145" fill="url(#forgeGrad)" filter="url(#glow)"/>
+  <!-- Anvil top face -->
+  <polygon points="75,75 95,60 125,60 145,75 110,85" fill="#E85D26" opacity="0.8"/>
+  <!-- Anvil horn -->
+  <path d="M60,120 L45,105 L50,90 L65,95 Z" fill="url(#forgeGrad)" filter="url(#glow)"/>
+  <!-- Hammer -->
+  <rect x="100" y="25" width="10" height="45" rx="3" fill="#555" transform="rotate(-20,105,47)"/>
+  <rect x="85" y="15" width="35" height="18" rx="4" fill="url(#forgeGrad)" transform="rotate(-20,105,47)" filter="url(#glow)"/>
+
+  <!-- Sparks -->
+  <circle cx="120" cy="12" r="3" fill="#FFD200" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="135" cy="8" r="2" fill="#FF6B35" filter="url(#glow)" opacity="0.7"/>
+  <circle cx="108" cy="5" r="2.5" fill="#FFFFFF" filter="url(#glow)" opacity="0.8"/>
+  <circle cx="145" cy="18" r="1.5" fill="#FFD200" filter="url(#glow)" opacity="0.6"/>
+  <circle cx="98" cy="8" r="2" fill="#F7931E" filter="url(#glow)" opacity="0.7"/>
+
+  <!-- FORGE text -->
+  <text x="185" y="115" font-family="'Segoe UI','Inter',sans-serif" font-size="72" font-weight="900" fill="url(#textGrad)" letter-spacing="8" filter="url(#glow)">FORGE</text>
+  <!-- Tagline -->
+  <text x="190" y="148" font-family="'Segoe UI','Inter',sans-serif" font-size="16" font-weight="400" fill="#888" letter-spacing="12">AI-NATIVE OPERATING SYSTEM</text>
+</svg>

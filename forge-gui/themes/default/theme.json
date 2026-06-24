@@ -1,0 +1,46 @@
+﻿{
+  "meta": {
+    "name": "Forge Default",
+    "author": "Forge Team",
+    "version": "1.0.0",
+    "description": "Default dark theme for Forge OS — sleek, modern, low-light",
+    "homepage": "https://github.com/ZBcxy/forge-os",
+    "license": "Apache-2.0"
+  },
+  "colors": {
+    "background": "#0a0a0f",
+    "surface": "#141420",
+    "surface_alt": "#1a1a2e",
+    "primary": "#6c63ff",
+    "secondary": "#3b82f6",
+    "accent": "#f59e0b",
+    "danger": "#ef4444",
+    "on_primary": "#ffffff",
+    "on_background": "#e0e0e0",
+    "on_surface": "#c0c0d0",
+    "border": "#2a2a3a"
+  },
+  "fonts": {
+    "family": "Inter",
+    "size": 14,
+    "weight": "regular",
+    "mono_family": "JetBrains Mono",
+    "mono_size": 13
+  },
+  "layout": {
+    "padding": 12,
+    "radius_px": 8,
+    "gap_px": 8,
+    "sidebar_width": 260,
+    "topbar_height": 40
+  },
+  "animations": {
+    "enabled": true,
+    "duration_ms": 200,
+    "easing": "ease-out"
+  },
+  "sounds": {
+    "enabled": true,
+    "volume": 0.7
+  }
+}
