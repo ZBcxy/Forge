@@ -7,15 +7,16 @@ members = [
     "forge-voice",
     "forge-agent",
     "forge-gui",
-    "forge-theme","forge-guard",
+    "forge-theme",
+    "forge-guard",
 ]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "1.1.0"
 edition = "2021"
 license = "Apache-2.0"
-repository = "https://github.com/ZBcxy/forge-os"
+repository = "https://github.com/ZBcxy/Forge"
 
 [workspace.dependencies]
 tokio = { version = "1", features = ["full"] }

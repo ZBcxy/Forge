@@ -24,9 +24,11 @@ Forge OS is an AI-native operating system built on the Linux kernel, written ent
          TTS (piper)              Tools (20 tools)
               │                        │
          Speaker              File/Proc/Net/System/Web
+                          ┌─────────────┘
+                    forge-guard (human security)
 ```
 
-### Components (8 crates)
+### Components (9 crates)
 
 | Crate | Size | Purpose |
 |-------|------|---------|
@@ -38,6 +40,7 @@ Forge OS is an AI-native operating system built on the Linux kernel, written ent
 | `forge-agent` | 5.3M | AI operator — OODA loop + 20-tool registry |
 | `forge-gui` | 1.0M | Desktop GUI — framebuffer compositor, theme engine |
 | `forge-theme` | ~500K | Theme CLI — scaffold, validate, package, install |
+| `forge-guard` | ~500K | Human security layer — auth, confirm, monitor, lock, audit |
 
 ### Agent Tools (20 tools)
 
@@ -54,7 +57,7 @@ Forge OS is an AI-native operating system built on the Linux kernel, written ent
 
 ```bash
 cargo build --release
-bash iso-builder/build-iso.sh     # produces bootable ISO (BIOS + UEFI)
+bash iso-builder/build-v1.1.sh   # produces bootable ISO (BIOS + UEFI)
 ```
 
 ### Community Themes
@@ -67,12 +70,15 @@ No server needed. Create, share, install offline:
 4. Share the `.forge-theme` file via GitHub Releases, USB, email, etc.
 5. Others install with `forge-theme install <file/url>`
 
-### Security
+### Security — Human-Centric
 
+The biggest threat is not the code — it's the human. Forge OS takes a defense-in-depth approach:
+
+- **forge-guard**: Five-layer human security (authentication, confirmation, behavior monitoring, lockout, audit)
 - All Agent tools run in a sandboxed executor with permission checks
-- API keys stored in environment variables only
-- No secrets in source code or logs
-- CORS whitelist, rate limiting, audit logging
+- API keys stored in environment variables only — never in code or logs
+- CORS whitelist, IP+user rate limiting, full audit trail
+- Sensitive operations (shutdown, delete, kill) require explicit confirmation
 - See [docs/security.md](docs/security.md)
 
 ### License
@@ -95,9 +101,11 @@ Forge OS 是一个基于 Linux 内核、Rust 语言全栈构建的 AI 原生操�
           TTS (piper)              Tools (20 个工具)
                │                        │
            扬声器              文件/进程/网络/系统/Web
+                          ┌─────────────┘
+                    forge-guard (人因安全层)
 ```
 
-### 组件 (8 crates)
+### 组件 (9 crates)
 
 | Crate | 大小 | 功能 |
 |-------|------|------|
@@ -109,6 +117,7 @@ Forge OS 是一个基于 Linux 内核、Rust 语言全栈构建的 AI 原生操�
 | `forge-agent` | 5.3M | AI 操作手，OODA 循环 + 20 工具注册表 |
 | `forge-gui` | 1.0M | 图形界面，framebuffer 渲染，主题引擎 |
 | `forge-theme` | ~500K | 社区主题 CLI，脚手架/校验/打包/安装 |
+| `forge-guard` | ~500K | 人因安全层 — 认证、确认、监控、锁定、审计 |
 
 ### Agent 工具 (20 个)
 
@@ -125,7 +134,7 @@ Forge OS 是一个基于 Linux 内核、Rust 语言全栈构建的 AI 原生操�
 
 ```bash
 cargo build --release
-bash iso-builder/build-iso.sh     # 生成可启动 ISO (BIOS + UEFI)
+bash iso-builder/build-v1.1.sh   # 生成可启动 ISO (BIOS + UEFI)
 ```
 
 ### 社区主题市场
@@ -138,17 +147,23 @@ bash iso-builder/build-iso.sh     # 生成可启动 ISO (BIOS + UEFI)
 4. 通过 GitHub Release、U 盘、邮件等分享 `.forge-theme` 文件
 5. 别人用 `forge-theme install <文件/URL>` 安装
 
-### 安全设计
+### 安全设计 — 人因优先
 
+最大的漏洞不是代码，是人。Forge OS 采用纵深防御：
+
+- **forge-guard**：五层人因安全（身份认证、操作确认、行为监控、锁定机制、审计追溯）
 - 所有 Agent 工具在沙箱执行器中运行，权限逐项校验
-- API 密钥仅存环境变量，不在代码和日志中留痕
-- CORS 白名单、速率限制、审计日志
-- 敏感操作二次确认
+- API 密钥仅存环境变量，绝不在代码或日志中留痕
+- CORS 白名单、IP+用户双维度速率限制、完整审计日志
+- 敏感操作（关机、删除、杀进程）须显式确认
 - 详见 [docs/security.md](docs/security.md)
 
 ### 许可证
 
 Apache-2.0
+
+---
+
 ## Roadmap / 路线图
 
 - [x] 架构设计 + Rust skeleton / Architecture + Rust skeleton
@@ -161,3 +176,8 @@ Apache-2.0
 - [x] ISO < 50MB / ISO 瘦身
 - [x] Bilingual README + security docs / 中英双语文档 + 安全文档
 - [x] v1.0 release / v1.0 正式发布
+- [x] v1.1 human-centric security layer / v1.1 人因安全层
+- [ ] Font rendering / 字体渲染
+- [ ] Full disk encryption / 全盘加密
+- [ ] USB device guard / USB 设备守护
+- [ ] Application signing / 应用签名
