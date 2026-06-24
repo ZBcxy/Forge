@@ -1,4 +1,5 @@
 use crate::theme::Theme;
+use crate::font::BitmapFont;
 
 pub struct Compositor {
     pub width: u32, pub height: u32,
@@ -62,12 +63,37 @@ impl Compositor {
         self.fill(x, y, 1, h, c); self.fill(x+w-1, y, 1, h, c);
     }
 
-    fn text(&mut self, x: u32, y: u32, _text: &str, c: u32) {
-        // Simple text indicator: draw a small colored bar per character
-        let chars = _text.chars().count() as u32;
-        let w = (chars * 8).min(300);
-        self.fill(x, y + 12, w, 2, c);
+    fn text(&mut self, x: u32, y: u32, text: &str, color: u32) {
+        let mut cx = x;
+        let mut glyph_buf = [0u8; (BitmapFont::CHAR_W as usize * BitmapFont::CHAR_H as usize)];
+        let cw = BitmapFont::CHAR_W;
+        let ch = BitmapFont::CHAR_H;
+        for chr in text.chars() {
+            if chr == '\n' { continue; }
+            BitmapFont::render_char(chr, &mut glyph_buf);
+            for row in 0..ch as usize {
+                for col in 0..cw as usize {
+                    let alpha = glyph_buf[row * cw as usize + col];
+                    if alpha == 0 { continue; }
+                    let px = cx as usize + col;
+                    let py = y as usize + row;
+                    if px < self.width as usize && py < self.height as usize {
+                        let bg = self.framebuffer[py * self.width as usize + px];
+                        let a = alpha as f32 / 255.0;
+                        let r = blend_ch((bg >> 16) as u8, (color >> 16) as u8, a);
+                        let g = blend_ch((bg >> 8) as u8, (color >> 8) as u8, a);
+                        let b = blend_ch(bg as u8, color as u8, a);
+                        self.framebuffer[py * self.width as usize + px] = 0xFF000000 | ((r as u32) << 16) | ((g as u32) << 8) | b as u32;
+                    }
+                }
+            }
+            cx += cw;
+        }
     }
+}
+
+fn blend_ch(bg: u8, fg: u8, alpha: f32) -> u8 {
+    (fg as f32 * alpha + bg as f32 * (1.0 - alpha)) as u8
 }
 
 #[derive(Debug, Clone)]
@@ -82,10 +108,10 @@ pub struct Notification { pub title: String, pub body: String }
 impl Default for GuiState {
     fn default() -> Self {
         Self {
-            status: "FORGE OS v0.3.0 — AI-Native Operating System".into(),
+            status: "FORGE OS v1.2.0 -- AI-Native Operating System".into(),
             windows: vec![
-                Window { id: "files".into(), title: "Files".into(), x: 270, y: 48, width: 420, height: 380, visible: true, focused: true, content: vec!["📁 /home/polaris/".into(),"  📄 README.md".into(),"  📁 Documents/".into(),"  📁 Downloads/".into(),"  📁 forge-os/".into(),"  📁 projects/".into()], kind: WindowKind::FileManager },
-                Window { id: "settings".into(), title: "Settings".into(), x: 710, y: 48, width: 360, height: 320, visible: true, focused: false, content: vec!["⚙ Theme: Forge Default".into(),"🔊 Volume: 70%".into(),"🌐 Network: Connected".into(),"💻 CPU: 2 cores / 3.8 GB".into(),"🧠 Agent: 20 tools ready".into()], kind: WindowKind::Settings },
+                Window { id: "files".into(), title: "Files".into(), x: 270, y: 48, width: 420, height: 380, visible: true, focused: true, content: vec!["  /home/polaris/".into(),"    README.md".into(),"    Documents/".into(),"    Downloads/".into(),"    forge-os/".into(),"    projects/".into()], kind: WindowKind::FileManager },
+                Window { id: "settings".into(), title: "Settings".into(), x: 710, y: 48, width: 360, height: 320, visible: true, focused: false, content: vec!["  Theme: Forge Default".into(),"  Volume: 70%".into(),"  Network: Connected".into(),"  CPU: 2 cores / 3.8 GB".into(),"  Guard: Active".into(),"  Agent: 20 tools ready".into()], kind: WindowKind::Settings },
             ],
             notification: None,
         }

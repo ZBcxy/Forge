@@ -461,7 +461,7 @@ checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
 
 [[package]]
 name = "forge-agent"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -475,7 +475,7 @@ dependencies = [
 
 [[package]]
 name = "forge-guard"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "serde",
@@ -488,7 +488,7 @@ dependencies = [
 
 [[package]]
 name = "forge-gui"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "serde",
@@ -500,7 +500,7 @@ dependencies = [
 
 [[package]]
 name = "forge-hal"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "cpal",
@@ -514,12 +514,12 @@ dependencies = [
 
 [[package]]
 name = "forge-init"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "libc",
  "nix",
- "thiserror 2.0.18",
+ "serde_json",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -527,7 +527,7 @@ dependencies = [
 
 [[package]]
 name = "forge-llm"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -544,7 +544,7 @@ dependencies = [
 
 [[package]]
 name = "forge-svc"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "libc",
@@ -557,7 +557,7 @@ dependencies = [
 
 [[package]]
 name = "forge-theme"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "serde",
@@ -566,7 +566,7 @@ dependencies = [
 
 [[package]]
 name = "forge-voice"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "cpal",
